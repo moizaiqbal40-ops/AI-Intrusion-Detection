@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------
+# Configuration for the Real-Time Intrusion Detection System
+# ---------------------------------------------------------------
+
+# Video source: 0 for default webcam, a file path for a video file,
+# or an RTSP URL for a real CCTV camera, e.g.
+#   "rtsp://username:password@192.168.1.64:554/stream1"
+source: 0
+
+# YOLO model to use. "yolov8n.pt" (nano) is fastest and good enough
+# for CPU-only demos. Use yolov8s.pt / yolov8m.pt for better accuracy
+# if you have a GPU.
+model: "yolov8n.pt"
+
+# Confidence threshold for detections
+confidence_threshold: 0.45
+
+# Which COCO classes count as "intruders" if they enter the restricted
+# zone. Default: person (0), car (2), motorcycle (3), truck (7).
+# Full COCO class list: https://docs.ultralytics.com/datasets/detect/coco/
+watched_classes:
+  - 0   # person
+  - 2   # car
+  - 3   # motorcycle
+  - 7   # truck
+
+# Restricted zone polygon, as a list of [x, y] pixel points on the frame.
+# Use src/zone_selector.py to draw this interactively on your own camera
+# feed instead of guessing coordinates.
+restricted_zone:
+  - [200, 150]
+  - [600, 150]
+  - [600, 450]
+  - [200, 450]
+
+# How many consecutive frames an object must be inside the zone before
+# it's treated as a confirmed intrusion (reduces false alarms from a
+# single flickering detection).
+intrusion_frame_threshold: 5
+
+# Cooldown (seconds) between two alerts for the same tracked object,
+# so one intrusion doesn't spam dozens of alerts.
+alert_cooldown_seconds: 10
+
+# Where to save snapshot evidence and logs
+snapshot_dir: "alerts"
+log_file: "logs/intrusion_log.csv"
+
+# Play a sound when an intrusion is detected (requires playsound + an
+# alert.wav file in the assets/ folder — optional)
+enable_sound_alert: false
+alert_sound_path: "assets/alert.wav"
