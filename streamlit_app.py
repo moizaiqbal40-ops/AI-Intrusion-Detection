@@ -1,16 +1,13 @@
 """
 streamlit_app.py
 ----------------
-Web demo for the AI Intrusion Detection project — deployable on
-Streamlit Community Cloud.
+Web demo for the AI Intrusion Detection project 
 
 Cloud servers have no camera / no native GUI window, so this app works
 on an UPLOADED VIDEO instead of a live webcam feed. Upload any short clip,
 draw a restricted zone using the sliders, and it runs YOLOv8 detection +
 tracking on it, flagging intrusions frame by frame.
 
-For a REAL live-camera / CCTV deployment, run `src/detector.py` locally
-or on the edge device connected to the camera — see README.md.
 """
 
 import os
